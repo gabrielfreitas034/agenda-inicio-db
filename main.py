@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect
 
 from flask_sqlalchemy import SQLAlchemy
 
+from werkzeug.security import generate_password_hash, check_password_hash
+
 app = Flask('app')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy(app)
@@ -41,7 +43,7 @@ def create():
   name= request.form.get('name')
   contacts.append({'name':name})
   return redirect('/')
-  
+
 if __name__ == '__main__':
   db.create_all()
   app.run(host='0.0.0.0', port=8080)
